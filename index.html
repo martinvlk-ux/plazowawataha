@@ -1,0 +1,839 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Gosia Vlk i Aga Adamek, siatkówka plażowa. Zostań trzecim zawodnikiem drużyny Jedna Wataha.">
+<meta property="og:title" content="Jedna Wataha">
+<meta property="og:description" content="Zostań trzecim zawodnikiem. Gosia Vlk i Aga Adamek, siatkówka plażowa.">
+<meta property="og:image" content="media/poster.jpg">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Jedna Wataha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Manrope:wght@400;500;700;800&display=swap">
+<style>
+/* Układ: nocny mecz. Film z turnieju na całą szerokość pod nagłówkiem, tablica wyników 14:14 jako serce strony, róż i turkus. Świadomie jeden ciemny wygląd, jak boisko przy reflektorach. */
+:root{
+  color-scheme:dark;
+  --night:#07091A; --panel:#10142B; --panel-2:#171C3A;
+  --ink:#F7F5F2; --muted:#A3A6BE; --line:#272C4D;
+  --pink:#FF5FA2; --teal:#3ED6D3; --sand:#E4CDA2;
+  --todo-bg:#3A2E10; --todo-fg:#F2DCA0;
+  --f-display:"Big Shoulders Display","Arial Narrow","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--night);color:var(--ink);font-family:var(--f-body);font-size:18px;line-height:1.55;margin:0;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3,p{margin:0}
+.display{font-family:var(--f-display);font-weight:900;text-transform:uppercase;line-height:.86}
+h2.display{font-size:clamp(46px,7.2vw,100px);text-wrap:balance}
+.pink{color:var(--pink)} .teal{color:var(--teal)}
+.label{font-weight:800;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal)}
+.lead{font-size:clamp(18px,1.9vw,22px);color:var(--muted);max-width:34em}
+.todo{display:inline-block;background:var(--todo-bg);color:var(--todo-fg);font-family:var(--f-body);font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;letter-spacing:0;text-transform:none;vertical-align:middle;line-height:1.5}
+
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border-radius:999px;font-weight:800;font-size:16px;text-decoration:none;transition:transform .15s;border:0;cursor:pointer;font-family:var(--f-body)}
+.btn.primary{background:var(--pink);color:#1A0610}
+.btn.ghost{background:transparent;border:1.5px solid rgba(247,245,242,.45);color:var(--ink)}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:4px}
+
+nav{position:absolute;top:0;left:0;right:0;z-index:5;padding-top:env(safe-area-inset-top,0px)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:20px}
+nav .team{font-family:var(--f-display);font-weight:900;font-size:24px;letter-spacing:.06em}
+nav .team span{color:var(--pink)}
+nav .btn{padding:10px 18px;font-size:14px}
+
+/* HERO: film na całą szerokość */
+.hero{position:relative;overflow:hidden;isolation:isolate;min-height:min(100svh,940px);display:grid;align-items:end;background:var(--night)}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;z-index:-2}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(7,9,26,.55) 0%,rgba(7,9,26,.05) 28%,rgba(7,9,26,.25) 52%,rgba(7,9,26,.95) 88%),
+             linear-gradient(90deg,rgba(7,9,26,.65) 0%,rgba(7,9,26,0) 65%)}
+.hero .wrap{width:100%;max-width:none;margin:0;padding-block:130px 64px;padding-left:max(clamp(20px,4vw,64px),env(safe-area-inset-left,0px));display:grid;gap:24px;justify-items:start}
+.hero .wrap > *{max-width:min(620px,100%)}
+.hero h1{font-size:clamp(58px,8.4vw,132px)}
+.hero h1 span{display:block}
+.hero .lead{color:#E2E3EE;max-width:30em}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.pause{position:absolute;right:max(20px,env(safe-area-inset-right,0px));bottom:24px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(7,9,26,.5);color:var(--ink);font:700 13px var(--f-body);cursor:pointer;z-index:2}
+.bigplay{position:absolute;top:34%;left:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;border:0;background:var(--pink);color:#1A0610;font-size:28px;cursor:pointer;z-index:2;box-shadow:0 10px 40px rgba(255,95,162,.45);display:grid;place-items:center}
+.bigplay span{margin-left:6px}
+.stripe{height:6px;background:linear-gradient(90deg,var(--pink),var(--sand) 50%,var(--teal))}
+
+.ticker{background:var(--teal);color:#05201F;overflow:hidden;white-space:nowrap}
+.ticker .row{display:inline-flex;gap:38px;padding-block:14px;font-family:var(--f-display);font-weight:900;font-size:26px;text-transform:uppercase;animation:tick 36s linear infinite}
+.ticker .row b{color:#7A1446}
+.ticker .row .you{color:#7A1446}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+section > .wrap{padding-block:clamp(84px,11vw,150px);display:grid;gap:44px}
+.head{display:grid;gap:16px}
+
+/* 14:14 */
+.match{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,5vw,72px);align-items:center}
+.board{background:#03040C;border-radius:24px;padding:22px 24px 26px;box-shadow:0 0 0 1px var(--line),0 30px 80px rgba(0,0,0,.5);display:grid;gap:14px;min-width:0}
+.board .top{display:flex;justify-content:space-between;gap:10px;font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.board .top .live{color:var(--pink)}
+.board .top .live::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pink);margin-right:8px;vertical-align:middle;animation:blink 1.2s infinite}
+@keyframes blink{50%{opacity:.25}}
+.side{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;padding:10px 0;border-top:1px solid var(--line)}
+.side .who{font-family:var(--f-display);font-weight:900;font-size:clamp(22px,2.6vw,32px);text-transform:uppercase;line-height:1}
+.side .who small{display:block;font-family:var(--f-body);font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--muted);margin-top:6px}
+.side.us .who small{color:var(--pink)}
+.pts{font-family:var(--f-display);font-weight:900;font-size:clamp(84px,11vw,150px);line-height:.8;font-variant-numeric:tabular-nums;min-width:2ch;text-align:right;transition:color .25s}
+.side.us .pts{color:var(--teal)}
+.pts.bump{animation:bump .45s ease-out}
+@keyframes bump{0%{transform:scale(1.18)}100%{transform:scale(1)}}
+.call{min-height:2.6em;font-family:var(--f-display);font-weight:900;font-size:clamp(26px,3vw,38px);text-transform:uppercase;line-height:1.05;color:var(--sand)}
+.board .replay{justify-self:start;padding:9px 16px;font-size:13px}
+.vs{display:grid;gap:0;border-top:1px solid var(--line)}
+.vs .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;padding-block:16px;border-bottom:1px solid var(--line);font-size:16px}
+.vs .row.h{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.vs .row.h span:last-child{color:var(--pink)}
+.vs .row span:first-child{color:var(--muted)}
+.vs .row span:last-child{color:var(--ink);font-weight:700}
+.brick{display:flex;gap:6px;flex-wrap:wrap}
+.brick i{width:28px;height:14px;border-radius:3px;background:var(--panel-2);display:block}
+.brick i.on{background:var(--pink)}
+
+/* Dziewczyny */
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{border-radius:24px;overflow:hidden;background:var(--panel);display:grid;grid-template-rows:auto 1fr;min-width:0}
+.card .photo{aspect-ratio:4/3;max-width:100%;display:grid;place-items:center;text-align:center;padding:20px;color:var(--muted);font-size:14px;background:linear-gradient(160deg,var(--panel-2),var(--panel) 60%)}
+.card .photo.img{padding:0;position:relative;overflow:hidden}
+.card .photo.img img{width:100%;height:100%;object-fit:cover;display:block}
+.card .photo.img .num{position:absolute;left:18px;bottom:6px;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.85)}
+.card .photo .num{font-family:var(--f-display);font-weight:900;font-size:clamp(110px,14vw,190px);line-height:.8;color:transparent;-webkit-text-stroke:2px var(--line)}
+.card .body{padding:26px 26px 30px;display:grid;gap:22px;align-content:start}
+.card .name{font-size:clamp(46px,5.5vw,72px)}
+.card .name span{color:var(--pink)} .card.aga .name span{color:var(--teal)}
+.height{display:flex;align-items:baseline;gap:8px}
+.height b{font-family:var(--f-display);font-weight:900;font-size:56px;line-height:.9}
+.height span{color:var(--muted);font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.medals{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.medals li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--panel-2)}
+.medal{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:900;font-size:22px;line-height:1;color:#12091A}
+.gold{background:radial-gradient(circle at 35% 30%,#FFF3B8,#E8B93C 55%,#B8861A)}
+.silver{background:radial-gradient(circle at 35% 30%,#FFFFFF,#C9CEDA 55%,#8A91A3)}
+.bronze{background:radial-gradient(circle at 35% 30%,#FFD7B0,#C9843F 55%,#8E5420)}
+.place{background:var(--night);color:var(--ink);box-shadow:inset 0 0 0 2px var(--teal)}
+.place.p{box-shadow:inset 0 0 0 2px var(--pink)}
+.medals b{display:block;font-weight:800;font-size:16px;line-height:1.25}
+.medals small{color:var(--muted);font-size:13px}
+
+/* Trener */
+.coach{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:0;border-radius:28px;overflow:hidden;background:var(--panel);box-shadow:0 0 0 1px var(--line)}
+.coach .pic{position:relative;min-height:100%;aspect-ratio:4/5;max-width:100%;overflow:hidden;background:var(--panel);display:flex;align-items:flex-end;justify-content:center;padding-top:28px}
+.coach .pic img{width:100%;height:100%;object-fit:contain;object-position:50% 100%;display:block;
+  -webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 98%);mask-image:linear-gradient(180deg,#000 62%,transparent 98%)}
+.coach .pic .role{position:absolute;left:22px;bottom:18px;z-index:1;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--sand)}
+.coach .txt{padding:clamp(28px,4.5vw,56px);display:grid;gap:22px;align-content:center;min-width:0}
+.coach .quote{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:clamp(40px,5.4vw,76px);line-height:.88}
+.coach .nm{font-size:20px;font-weight:800}
+.coach .nm small{display:block;font-size:14px;font-weight:600;color:var(--muted);margin-top:2px}
+.flags{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;border-top:1px solid var(--line);padding-top:20px}
+.flags div{display:grid;gap:4px;min-width:0}
+.flags b{font-family:var(--f-display);font-weight:900;font-size:clamp(30px,3.4vw,44px);line-height:.9;color:var(--sand)}
+.flags span{font-size:13px;color:var(--muted);line-height:1.35}
+@media (max-width:760px){ .coach{grid-template-columns:1fr} .coach .pic{aspect-ratio:4/4} .flags{grid-template-columns:1fr;gap:14px} .flags div{grid-template-columns:auto 1fr;align-items:baseline;gap:12px} }
+
+/* Turnieje */
+.events{display:grid;gap:0;border-top:1px solid var(--line)}
+.ev{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:20px;align-items:center;padding-block:20px;border-bottom:1px solid var(--line)}
+.ev .when{font-family:var(--f-display);font-weight:900;font-size:26px;text-transform:uppercase;color:var(--teal)}
+.ev h3{font-family:var(--f-display);font-weight:900;font-size:clamp(26px,3vw,38px);text-transform:uppercase;line-height:.95}
+.ev p{color:var(--muted);font-size:15px;margin-top:4px}
+.lvl{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.lvl.int{border-color:var(--pink);color:var(--pink)}
+.lvl.top{background:var(--teal);border-color:var(--teal);color:#05201F}
+
+/* Co dostajesz */
+.gets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.get{position:relative;background:var(--panel);border-radius:22px;padding:24px;display:grid;gap:16px;align-content:start;min-width:0;overflow:hidden}
+.get svg{width:56px;height:56px}
+.get h3{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:clamp(26px,2.3vw,34px);line-height:.92;overflow-wrap:anywhere;hyphens:auto}
+.get .pts-list{margin:0;padding:0;list-style:none;display:grid;gap:10px;font-size:15px;line-height:1.4;color:#D3D5E3;border-top:1px solid var(--line);padding-top:16px}
+.get .pts-list li{display:grid;grid-template-columns:14px 1fr;gap:10px}
+.get .pts-list li::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--pink);margin-top:7px;transform:rotate(45deg)}
+.get.t .pts-list li::before{background:var(--teal)}
+.get .in-tier{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.get .in-tier b{color:var(--ink)}
+
+/* Kibic kontra drużyna */
+.split{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);border-radius:28px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.split .fan{background:#1A1B22;color:#6E707C;padding:clamp(26px,4vw,48px);display:grid;gap:18px;align-content:start;filter:grayscale(1)}
+.split .mem{background:linear-gradient(150deg,#FF5FA2 0%,#E8458F 55%,#C9307A 100%);color:#1A0610;padding:clamp(26px,4vw,48px);display:grid;gap:18px;align-content:start;position:relative}
+.split .who-t{font-family:var(--f-display);font-weight:900;text-transform:uppercase;line-height:.85}
+.split .fan .who-t{font-size:clamp(40px,5vw,64px);color:#55575F}
+.split .mem .who-t{font-size:clamp(56px,7.5vw,104px)}
+.split ul{margin:0;padding:0;list-style:none;display:grid;gap:0}
+.split li{padding-block:14px;border-top:1px solid}
+.split .fan li{border-color:#2A2B33;font-size:16px}
+.split .mem li{border-color:rgba(26,6,16,.2);font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:clamp(24px,2.6vw,34px);line-height:1}
+.split .tagline{font-size:13px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.split .fan .tagline{color:#4A4C55}
+
+/* Oś sezonu */
+.season{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px}
+.mon{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:center;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.bar{border-radius:12px;padding:12px 14px;display:grid;gap:2px;min-width:0;font-size:13px;line-height:1.3}
+.bar b{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:20px;line-height:1}
+.bar.prep{background:var(--panel-2);color:var(--muted);grid-column:1/2}
+.bar.intl{background:var(--pink);color:#1A0610;grid-column:2/6}
+.bar.pl{background:var(--teal);color:#05201F;grid-column:5/8}
+.bar.final{background:var(--sand);color:#2A1D05;grid-column:8/9}
+.season .r2{grid-row:3}
+@media (max-width:760px){
+  .split{grid-template-columns:1fr}
+  .season{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .season .mon{display:none}
+  .bar.prep,.bar.intl,.bar.pl,.bar.final{grid-column:1/-1}
+  .season .r2{grid-row:auto}
+}
+.get .k{position:absolute;top:22px;right:22px;font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+/* Pakiety */
+.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.tier{background:var(--panel);border-radius:24px;padding:30px 28px;display:grid;gap:18px;align-content:start;min-width:0;border:1px solid var(--line);position:relative}
+.tier.hot{background:linear-gradient(var(--panel),var(--panel)) padding-box,linear-gradient(135deg,var(--pink),var(--teal)) border-box;border:2px solid transparent}
+.tier .role{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+.tier h3{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:44px;line-height:.88}
+.tier .price{font-family:var(--f-display);font-weight:800;font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.tier .price small{font-family:var(--f-body);font-size:14px;font-weight:500;color:var(--muted)}
+.tier .feel{font-weight:700}
+.tier ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;font-size:15px;color:#CFD1E0}
+.tier li{display:grid;grid-template-columns:18px 1fr;gap:10px}
+.tier li::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--teal);margin-top:7px}
+.tier.hot li::before{background:var(--pink)}
+
+.barter{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center;border-radius:24px;padding:30px 28px;border:2px dashed var(--teal)}
+.barter > div{display:grid;gap:10px;min-width:0}
+.barter .role{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+.barter h3{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:44px;line-height:.88}
+.barter p{color:var(--muted);font-size:16px}
+.chips{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.chips li{padding:8px 14px;border-radius:999px;background:var(--panel-2);font-size:14px;font-weight:700}
+.chips li:first-child{background:var(--teal);color:#05201F}
+@media (max-width:760px){ .barter{grid-template-columns:1fr} }
+
+/* Partnerzy i konfigurator 3D */
+.partners{display:flex;flex-wrap:wrap;gap:10px}
+.partners li{list-style:none;padding:14px 22px;border-radius:14px;background:var(--panel);border:1px solid var(--line);font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:clamp(20px,2.4vw,28px);line-height:1}
+.partners li.you{border:2px dashed var(--pink);color:var(--pink);background:transparent}
+.partners{margin:0;padding:0}
+.config{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.viewer{position:relative;aspect-ratio:4/5;max-width:100%;border-radius:28px;overflow:hidden;
+  background:radial-gradient(80% 60% at 50% 35%,#24305E 0%,var(--panel) 60%,var(--night) 100%);box-shadow:0 0 0 1px var(--line);touch-action:pan-y}
+.viewer canvas{display:block;width:100%!important;height:100%!important;cursor:grab}
+.viewer canvas:active{cursor:grabbing}
+.viewer .hint{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);pointer-events:none}
+.viewer .fallback{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted)}
+.cfg{display:grid;gap:22px;min-width:0}
+.cfg h3{font-family:var(--f-display);font-weight:900;text-transform:uppercase;font-size:clamp(40px,5vw,68px);line-height:.88}
+.cfg label{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cfg input{width:100%;font:800 22px var(--f-body);padding:16px 18px;border-radius:14px;border:2px solid var(--line);background:var(--panel);color:var(--ink);text-transform:uppercase}
+.cfg input:focus{outline:none;border-color:var(--pink)}
+.zones{display:flex;flex-wrap:wrap;gap:8px}
+.zones button{font:700 14px var(--f-body);padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.zones button[aria-pressed="true"]{background:var(--pink);border-color:var(--pink);color:#1A0610}
+@media (max-width:760px){ .config{grid-template-columns:1fr} .viewer{aspect-ratio:4/5} }
+
+.mockwrap{display:grid;gap:12px;min-width:0}
+.views{display:flex;gap:6px;background:var(--panel);padding:5px;border-radius:999px;width:fit-content}
+.views button{font:800 13px var(--f-body);letter-spacing:.06em;text-transform:uppercase;padding:9px 16px;border-radius:999px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.views button[aria-selected="true"]{background:var(--ink);color:var(--night)}
+.mock{position:relative;border-radius:24px;overflow:hidden;container-type:inline-size;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.mock img{display:block;width:100%;height:auto}
+.tag{position:absolute;display:grid;place-items:center;transform:rotate(var(--r,0deg));border-radius:3px;cursor:pointer;transition:box-shadow .25s,outline-color .25s;outline:2px solid transparent;outline-offset:3px}
+.tag b{display:block;white-space:nowrap;font-family:var(--f-display);font-weight:900;text-transform:uppercase;line-height:1;font-size:3cqw}
+.t-plecy{background:#EADFC4}.t-plecy b{color:#1E1B2E}
+.t-cream{background:#EFE3C8}.t-cream b{color:#1E1B2E}
+.t-bikini{background:transparent}.t-bikini b{color:rgba(255,255,255,.92)}
+.t-tattoo b{color:rgba(40,22,30,.78);font-weight:800;letter-spacing:.02em}
+.t-pink{background:#E2457F;border-radius:4px}.t-pink b{color:#fff}
+.t-white{background:#F2F2EF;border-radius:4px}.t-white b{color:#1B2150}
+.tag.on{outline-color:var(--pink);box-shadow:0 0 0 6px rgba(255,95,162,.25)}
+.mock-note{font-size:13px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.tag.on{animation:pulse 1.6s ease-in-out infinite}}
+@keyframes pulse{50%{box-shadow:0 0 0 12px rgba(255,95,162,0)}}
+.ig{display:inline-flex;align-items:center;gap:8px;width:fit-content;padding:7px 14px 7px 10px;border-radius:999px;background:linear-gradient(135deg,#FF5FA2,#F7A35C);color:#1A0610;font-weight:800;font-size:14px;text-decoration:none;transition:transform .15s}
+.ig:hover{transform:translateY(-2px)}
+.ig svg{flex:none}
+.mock{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.mock img{display:block;width:100%;height:auto}
+.tag,.patch{position:absolute;display:grid;place-items:center;border-radius:2px;overflow:hidden}
+.tag b{display:block;white-space:nowrap;font-family:var(--f-display);font-weight:900;text-transform:uppercase;line-height:1}
+.t-vert b{transform:rotate(-90deg)}
+.t-cyan{background:#3FC9E6}.t-cyan b{color:#0E1A3A}
+.t-white{background:#F2F2EF}.t-white b{color:#1B2150}
+.t-pinkl{background:#F4A2CB}.t-pinkl b{color:#1FA9D8}
+.t-pink{background:#F23FAA}.t-pink b{color:#fff}
+.t-bikini b{color:rgba(255,255,255,.9)}
+.mock-note{font-size:13px;color:var(--muted)}
+.config{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+@media (max-width:760px){.config{grid-template-columns:1fr}}
+.mockwrap{display:grid;gap:10px;min-width:0}
+.spots{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.spots li{padding:8px 14px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-size:14px;font-weight:700}
+.ig-photo{position:absolute;top:14px;right:14px;z-index:2;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.namerow{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+/* Przejście: od granatu nocnego meczu do jasnego dnia na plaży */
+#mecz{background:linear-gradient(180deg,#07091A,#121A3E)}
+#druzyna{background:linear-gradient(180deg,#121A3E,#2E3D74)}
+#trener{background:linear-gradient(180deg,#2E3D74,#6B7BB2)}
+#turnieje{background:linear-gradient(180deg,#6B7BB2,#B9C4E0 40%,#D6DDEC)}
+#co-dostajesz{background:linear-gradient(180deg,#D6DDEC,#E2E7F1)}
+#pakiety{background:linear-gradient(180deg,#E2E7F1,#EAEEF5)}
+#partnerzy{background:linear-gradient(180deg,#EAEEF5,#EFF2F7)}
+.jersey-sec{background:radial-gradient(120% 90% at 80% 0%,#FFD3E6 0%,rgba(255,211,230,0) 55%),linear-gradient(180deg,#EFF2F7,#F3F5F9)}
+footer{background:#F3F5F9}
+body{background:linear-gradient(180deg,#07091A 0%,#2E3D74 30%,#D6DDEC 50%,#F3F5F9 100%)}
+#turnieje,#co-dostajesz,#pakiety,#partnerzy,.jersey-sec,footer{
+  --ink:#0B1030;--muted:#4E5672;--line:rgba(11,16,48,.14);--panel:#FFFFFF;--panel-2:#EEF1F7;
+  --pink:#E2307A;--teal:#0B8A8D;--sand:#9C722E;--todo-bg:#FFF1CF;--todo-fg:#7A5300;color:var(--ink)}
+#co-dostajesz .get .pts-list{color:var(--muted)}
+#co-dostajesz .get{box-shadow:0 1px 0 var(--line),0 10px 30px rgba(11,16,48,.06)}
+#pakiety .tier ul,#pakiety .tier .feel{color:var(--muted)}
+#pakiety .tier .feel{color:var(--ink)}
+#pakiety .btn.ghost,#partnerzy .btn.ghost,.jersey-sec .btn.ghost{border-color:var(--line);color:var(--ink)}
+footer .wrap{border-top-color:var(--line)}
+.shirt-wrap{display:grid;gap:16px;justify-items:center;min-width:0}
+.shirt{width:100%;max-width:470px;height:auto;filter:drop-shadow(0 30px 40px rgba(11,16,48,.25))}
+.sh-name{font-family:var(--f-display);font-weight:900;font-size:34px;letter-spacing:.06em;fill:#F7F5F2;text-transform:uppercase}
+.sh-no{font-family:var(--f-display);font-weight:900;font-size:150px;fill:#F7F5F2;stroke:#3ED6D3;stroke-width:2.5;paint-order:stroke}
+.sh-sub{font-family:var(--f-body);font-weight:800;font-size:9.5px;letter-spacing:.22em;fill:#3ED6D3}
+.sh-sleeve{font-family:var(--f-display);font-weight:900;font-size:15px;letter-spacing:.2em;fill:#F7F5F2;opacity:.8}
+.brandbox{display:grid;gap:8px;width:100%;max-width:420px}
+.brandbox label{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.brandbox input{width:100%;font:800 20px var(--f-body);padding:14px 16px;border-radius:14px;border:2px solid var(--line);background:var(--panel);color:var(--ink);text-transform:uppercase}
+.brandbox input:focus{outline:none;border-color:var(--pink)}
+.navr{display:flex;gap:10px;align-items:center}
+.lang{display:flex;background:rgba(7,9,26,.45);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:3px}
+.lang button{font:800 12px var(--f-body);letter-spacing:.1em;padding:7px 11px;border-radius:999px;border:0;background:transparent;color:#F7F5F2;cursor:pointer}
+.lang button[aria-pressed="true"]{background:#F7F5F2;color:#07091A}
+#live{background:#07091A}
+#live > .wrap{padding-block:clamp(56px,7vw,90px);gap:28px}
+#live .label{display:inline-flex;align-items:center;gap:10px;color:var(--pink)}
+#live .dot{width:9px;height:9px;border-radius:50%;background:var(--pink);display:inline-block;animation:blink 1.2s infinite}
+#live h2.display{font-size:clamp(38px,5.6vw,72px)}
+.matches{display:grid;gap:12px}
+.match-row{display:grid;grid-template-columns:90px minmax(0,1fr) auto;gap:18px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px 20px}
+.match-row .tm{font-family:var(--f-display);font-weight:900;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.match-row .mvs{font-family:var(--f-display);font-weight:900;font-size:clamp(20px,2.4vw,28px);text-transform:uppercase;line-height:1.05}
+.match-row .meta{font-size:13px;color:var(--muted);margin-top:4px}
+.match-row .st{display:grid;justify-items:end;gap:6px}
+.chip{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.live{background:var(--pink);border-color:var(--pink);color:#1A0610}
+.chip.next{border-color:var(--teal);color:var(--teal)}
+.score{font-family:var(--f-display);font-weight:900;font-size:24px;font-variant-numeric:tabular-nums}
+.score.win{color:var(--teal)}
+.upd{font-size:13px;color:var(--muted)}
+.live-empty{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:760px){ .match-row{grid-template-columns:64px minmax(0,1fr);} .match-row .st{grid-column:1/-1;justify-items:start;grid-auto-flow:column;align-items:center} .navr .btn{display:none} }
+@media (prefers-reduced-motion:reduce){#live .dot{animation:none}}
+/* Koszulka 03 */
+
+.jersey-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:clamp(30px,6vw,90px);align-items:center}
+.jersey{aspect-ratio:1/1.05;max-width:460px;width:100%;justify-self:center;background:var(--pink);color:#1A0610;
+  clip-path:polygon(22% 0,36% 0,40% 6%,60% 6%,64% 0,78% 0,100% 16%,90% 34%,82% 30%,82% 100%,18% 100%,18% 30%,10% 34%,0 16%);display:grid;place-items:center;text-align:center}
+.jersey .in{display:grid;gap:4px;margin-top:6%}
+.jersey .nm{font-family:var(--f-display);font-weight:900;font-size:clamp(26px,3.4vw,40px);letter-spacing:.06em;text-transform:uppercase}
+.jersey .no{font-family:var(--f-display);font-weight:900;font-size:clamp(140px,18vw,240px);line-height:.8}
+.jersey .sub{font-size:11px;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
+.roster{display:grid;border-top:1px solid var(--line);font-family:var(--f-display);font-weight:900;text-transform:uppercase}
+.roster div{display:flex;justify-content:space-between;align-items:baseline;padding-block:12px;border-bottom:1px solid var(--line);font-size:clamp(28px,3.4vw,44px)}
+.roster em{font-style:normal;color:var(--muted);font-size:.7em}
+.roster .you{color:var(--pink)}
+.contact{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:15px}
+footer .wrap{padding-block:28px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+
+@media (max-width:980px){ .gets{grid-template-columns:1fr 1fr} .match{grid-template-columns:1fr} }
+@media (max-width:760px){
+  .hero::after{background:linear-gradient(180deg,rgba(7,9,26,.45) 0%,rgba(7,9,26,.1) 30%,rgba(7,9,26,.95) 80%)}
+  .hero .wrap{padding-block:110px 84px}
+  .pair,.tiers,.jersey-grid,.gets{grid-template-columns:1fr}
+  .ev{grid-template-columns:1fr;gap:8px}
+  .lvl{justify-self:start}
+  .vs .row{gap:12px;font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ticker .row,.board .top .live::before{animation:none}
+  .btn{transition:none} html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><span class="team">JEDNA <span>WATAHA</span></span><div class="navr"><div class="lang" role="group" aria-label="Język / Language"><button type="button" data-l="pl" aria-pressed="true">PL</button><button type="button" data-l="en" aria-pressed="false">EN</button></div><a class="btn primary" href="#pakiety">Dołącz</a></div></div></nav>
+
+<header class="hero">
+  <video id="clip" poster="media/poster.jpg" autoplay muted loop playsinline webkit-playsinline preload="auto" aria-label="Akcja z meczu: atak, obrona i radość po punkcie"></video>
+  <div class="wrap">
+    <h1 class="display"><span>Zostań</span><span class="pink">trzecim</span><span class="teal">zawodnikiem.</span></h1>
+    <p class="lead">Na piasku stoją dwie. Ty stoisz przy linii i czujesz każdy punkt, jakbyś sam był na boisku. Bo jesteś częścią drużyny.</p>
+    <div class="ctas"><a class="btn primary" href="#pakiety">Dołącz do drużyny</a><a class="btn ghost" href="#mecz">Poczuj, jak to jest</a></div>
+  </div>
+  <button class="pause" id="pause" type="button" aria-label="Zatrzymaj film">II</button>
+  <button class="bigplay" id="bigplay" type="button" aria-label="Odtwórz film" hidden><span>▶</span></button>
+</header>
+<div class="stripe"></div>
+
+<div class="ticker" role="region" aria-label="Partnerzy drużyny: Leksus.pl, Unique Wilczyce, ASR Krotoszyn, Gmina Przygodzice, Biznes-Słowacja.pl"><div class="row" aria-hidden="true">
+  <span>Leksus.pl</span><b>●</b><span>Unique Wilczyce</span><b>●</b><span>ASR Krotoszyn</span><b>●</b><span>Gmina Przygodzice</span><b>●</b><span>Biznes-Słowacja.pl</span><b>●</b><span class="you">Twoja firma?</span><b>●</b>
+  <span>Leksus.pl</span><b>●</b><span>Unique Wilczyce</span><b>●</b><span>ASR Krotoszyn</span><b>●</b><span>Gmina Przygodzice</span><b>●</b><span>Biznes-Słowacja.pl</span><b>●</b><span class="you">Twoja firma?</span><b>●</b>
+</div></div>
+
+<section id="live" class="live" aria-live="polite">
+  <div class="wrap">
+    <div class="head">
+      <span class="label"><i class="dot" aria-hidden="true"></i>Na żywo z turnieju</span>
+      <h2 class="display" id="liveTitle" data-i18n-skip></h2>
+      <p class="lead" id="liveSub" data-i18n-skip></p>
+    </div>
+    <div class="matches" id="liveList" data-i18n-skip></div>
+    <p class="upd" id="liveUpd" data-i18n-skip></p>
+  </div>
+</section>
+<script type="application/json" id="live-data">{"updated":"","tournament":null,"matches":[]}</script>
+
+<section id="mecz">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Tie-break, gra na przewagi</span>
+      <h2 class="display">Na boisku są dwie. <span class="pink">Wygrywa się we trzech.</span></h2>
+    </div>
+    <div class="match">
+      <div class="board" aria-live="polite">
+        <div class="top"><span>Set 3 · do 15</span><span class="live">Na żywo</span></div>
+        <div class="side us"><div class="who">Vlk / Adamek<small>i ty</small></div><div class="pts" id="us">14</div></div>
+        <div class="side"><div class="who">Rywalki<small>&nbsp;</small></div><div class="pts" id="them">14</div></div>
+        <div class="call" id="call" data-i18n-skip>14:14. Serce w gardle.</div>
+        <button class="btn ghost replay" id="replay" type="button">Zagraj jeszcze raz</button>
+      </div>
+      <div class="head" style="gap:22px">
+        <p class="lead" style="color:var(--ink)">Kibic patrzy na wynik. Członek drużyny go przeżywa. To dwa zupełnie różne mecze.</p>
+        <p class="quiet" style="color:var(--muted)">Zobacz różnicę poniżej.</p>
+      </div>
+    </div>
+    <div class="split">
+      <div class="fan">
+        <span class="tagline">Zwykły kibic</span>
+        <div class="who-t">Patrzy na wynik.</div>
+        <ul>
+          <li>Ogląda mecz w telefonie</li>
+          <li>Cieszy się z cudzego wyniku</li>
+          <li>Zna dziewczyny z telewizji</li>
+          <li>Kupuje bilet i wraca do domu</li>
+          <li>Po sezonie nic nie zostaje</li>
+        </ul>
+      </div>
+      <div class="mem">
+        <span class="tagline">Ty w drużynie</span>
+        <div class="who-t">Przeżywasz każdy punkt.</div>
+        <ul>
+          <li>Stoisz przy boisku</li>
+          <li>Wygrywasz razem z nami</li>
+          <li>Dzwonisz do dziewczyn po meczu</li>
+          <li>Dokładasz cegiełkę do złota</li>
+          <li>Medal jest też twój</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="druzyna">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Drużyna</span>
+      <h2 class="display">Dwie zawodniczki. <span class="teal">Jeden cel.</span></h2>
+    </div>
+    <div class="pair">
+      <article class="card gosia">
+        <div class="photo img"><img src="media/gosia.jpg" alt="Gosia Vlk krzyczy z radości po punkcie" style="object-position:62% 30%"><div class="num">01</div></div>
+        <div class="body">
+          <div class="namerow"><h3 class="display name">Gosia <span>Vlk</span></h3><a class="ig" href="https://www.instagram.com/gosiavlk/" target="_blank" rel="noopener" aria-label="Instagram: Gosia Vlk"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg><span>@gosiavlk</span></a></div>
+          <div class="height"><b>187</b><span>cm wzrostu</span></div>
+          <ul class="medals">
+            <li><span class="medal gold">1</span><div><b>Mistrzyni świata</b><small>Volleyball on Water, Ljubljana 2025</small></div></li>
+            <li><span class="medal bronze">3×</span><div><b>3 brązowe medale</b><small>turnieje eliminacyjne ORLEN Mistrzostw Polski 2026</small></div></li>
+            <li><span class="medal place p">5.</span><div><b>5. miejsce</b><small>Finał Mistrzostw Polski</small></div></li>
+            <li><span class="medal place p">MP</span><div><b>Eliminacje Mistrzostw Polski</b><small>2023–2026</small></div></li>
+          </ul>
+        </div>
+      </article>
+      <article class="card aga">
+        <div class="photo img"><img src="media/aga.jpg" alt="Aga Adamek zaciska pięść po wygranym punkcie" style="object-position:42% 25%"><div class="num">02</div></div>
+        <div class="body">
+          <div class="namerow"><h3 class="display name">Aga <span>Adamek</span></h3><a class="ig" href="https://www.instagram.com/agnieszka__adamek/" target="_blank" rel="noopener" aria-label="Instagram: Aga Adamek"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg><span>@agnieszka__adamek</span></a></div>
+          <div class="height"><b>169</b><span>cm wzrostu</span></div>
+          <ul class="medals">
+            <li><span class="medal gold">1</span><div><b>Mistrzyni Polski</b><small>2025</small></div></li>
+            <li><span class="medal silver">2</span><div><b>Srebro Beach Pro Tour Futures</b><small>turniej światowy FIVB</small></div></li>
+            <li><span class="medal silver">2</span><div><b>Wicemistrzyni Polski</b><small>2024</small></div></li>
+            <li><span class="medal bronze">+</span><div><b>Multimedalistka</b><small>turnieje eliminacyjne Mistrzostw Polski</small></div></li>
+            <li><span class="medal place">4.</span><div><b>4. miejsce</b><small>Mistrzostwa Polski 2026</small></div></li>
+            <li><span class="medal place">7.</span><div><b>7. miejsce</b><small>Mistrzostwa Europy</small></div></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="trener" style="padding-top:0">
+  <div class="wrap" style="padding-top:0">
+    <div class="coach">
+      <div class="pic"><img src="media/trener.png" alt="Trener Łukasz Przybylak"><span class="role">Trener drużyny</span></div>
+      <div class="txt">
+        <span class="label" style="color:var(--sand)">Za każdą wielką parą stoi trener</span>
+        <h2 class="quote">Nie ma wielkiej drużyny <span class="pink">bez wielkiego trenera.</span></h2>
+        <div class="nm">Łukasz Przybylak<small>Mega nowoczesne podejście i wiedza na światowym poziomie: technika, przygotowanie mentalne, prowadzenie drużyny.</small></div>
+        <div class="flags">
+          <div><b>3 kraje</b><span>Polska, Niemcy, Węgry</span></div>
+          <div><b>Bundesliga</b><span>i węgierska Extraliga kobiet</span></div>
+          <div><b>Pasja</b><span>entuzjasta, który zapala drużynę</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="turnieje">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Sezon 2027 <span class="todo">kalendarz do potwierdzenia</span></span>
+      <h2 class="display">Gdzie będziesz <span class="pink">z nami.</span></h2>
+    </div>
+    <div class="season" aria-label="Oś sezonu od stycznia do sierpnia">
+      <span class="mon">Sty</span><span class="mon">Lut</span><span class="mon">Mar</span><span class="mon">Kwi</span><span class="mon">Maj</span><span class="mon">Cze</span><span class="mon">Lip</span><span class="mon">Sie</span>
+      <div class="bar prep"><b>Start</b>przygotowanie</div>
+      <div class="bar intl"><b>Europa i świat</b>Challenge, Futures, satelity CEV</div>
+      <div class="bar final"><b>Finał</b>MP</div>
+      <div class="bar pl r2"><b>Polska</b>ORLEN Mistrzostwa Polski, eliminacje</div>
+    </div>
+    <div class="events">
+      <div class="ev"><span class="when">Styczeń</span><div><h3>Start sezonu</h3><p>Obóz, siłownia, pierwsze treningi nowej pary <span class="todo">gdzie</span></p></div><span class="lvl">Przygotowanie</span></div>
+      <div class="ev"><span class="when">Lut–maj</span><div><h3>Beach Pro Tour Challenge</h3><p>Turnieje światowe FIVB <span class="todo">miejsca do uzupełnienia</span></p></div><span class="lvl int">Świat</span></div>
+      <div class="ev"><span class="when">Lut–maj</span><div><h3>Beach Pro Tour Futures</h3><p>Turnieje międzynarodowe, punkty do rankingu <span class="todo">miejsca do uzupełnienia</span></p></div><span class="lvl int">Świat</span></div>
+      <div class="ev"><span class="when">Lut–maj</span><div><h3>Satelity CEV</h3><p>Turnieje europejskie <span class="todo">miejsca do uzupełnienia</span></p></div><span class="lvl int">Europa</span></div>
+      <div class="ev"><span class="when">Maj–lip</span><div><h3>ORLEN Mistrzostwa Polski</h3><p>Turnieje eliminacyjne w Polsce <span class="todo">miasta i daty</span></p></div><span class="lvl">Polska</span></div>
+      <div class="ev"><span class="when">Sierpień</span><div><h3>ORLEN Finał Mistrzostw Polski</h3><p>Mecz o złoto. Tu jedziemy wszyscy razem. <span class="todo">miejsce</span></p></div><span class="lvl top">Cel sezonu</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="co-dostajesz">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Co dostajesz</span>
+      <h2 class="display">Więcej niż <span class="pink">logo.</span></h2>
+    </div>
+    <div class="gets">
+      <div class="get">
+        <span class="k">Turnieje</span>
+        <svg viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="28" cy="28" r="22" stroke="#FF5FA2" stroke-width="3"/><path d="M8 22c10 4 30 4 40 0M10 38c10-6 26-6 36 0M28 6c-8 12-8 32 0 44" stroke="#FF5FA2" stroke-width="3" stroke-linecap="round"/></svg>
+        <h3>Emocje na turnieju</h3>
+        <ul class="pts-list">
+          <li>Miejsce przy boisku na wybranych turniejach</li>
+          <li>Wejście za kulisy: rozgrzewka, odprawa, szatnia</li>
+          <li>Wiadomość od dziewczyn przed i po meczu</li>
+          <li>Relacja na żywo z turniejów za granicą</li>
+          <li>Wspólne świętowanie po medalu</li>
+        </ul>
+        <span class="in-tier">W pakietach: <b>wszystkich</b></span>
+      </div>
+      <div class="get t">
+        <span class="k">Drużyna</span>
+        <svg viewBox="0 0 56 56" fill="none" aria-hidden="true"><path d="M16 8h24v10a12 12 0 0 1-24 0V8Z" stroke="#3ED6D3" stroke-width="3" stroke-linejoin="round"/><path d="M16 12H8v4a8 8 0 0 0 8 8M40 12h8v4a8 8 0 0 1-8 8M28 30v10M18 48h20M22 40h12v8H22z" stroke="#3ED6D3" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <h3>Wygrywasz z nami</h3>
+        <ul class="pts-list">
+          <li>Koszulka „Official Team Member” z numerem 03</li>
+          <li>Twoja marka na strojach i przy boisku</li>
+          <li>Rolki i zdjęcia z sezonu do twojego marketingu</li>
+          <li>Kampania z twoją marką, na przykład „Road to the Podium”</li>
+        </ul>
+        <span class="in-tier">W pakietach: <b>Wilczy Partner, Alfa</b></span>
+      </div>
+      <div class="get">
+        <span class="k">Inner Circle</span>
+        <svg viewBox="0 0 56 56" fill="none" aria-hidden="true"><circle cx="18" cy="20" r="7" stroke="#FF5FA2" stroke-width="3"/><circle cx="38" cy="20" r="7" stroke="#FF5FA2" stroke-width="3"/><circle cx="28" cy="38" r="7" stroke="#FF5FA2" stroke-width="3"/><path d="M24 23l-2 10M32 23l2 10M25 20h6" stroke="#FF5FA2" stroke-width="3" stroke-linecap="round"/></svg>
+        <h3>Poznajesz przedsiębiorców</h3>
+        <ul class="pts-list">
+          <li>Miejsce w Inner Circle, klubie partnerów drużyny</li>
+          <li>Przedstawiamy cię firmom, z którymi możesz robić biznes</li>
+          <li>Spotkania partnerów przy boisku i po turnieju</li>
+          <li>Zamknięta grupa klubu przez cały sezon</li>
+        </ul>
+        <span class="in-tier">W pakietach: <b>wszystkich</b></span>
+      </div>
+      <div class="get t">
+        <span class="k">Dla firmy</span>
+        <svg viewBox="0 0 56 56" fill="none" aria-hidden="true"><rect x="8" y="10" width="40" height="26" rx="4" stroke="#3ED6D3" stroke-width="3"/><path d="M28 36v10M18 46h20M16 28l8-8 6 5 10-9" stroke="#3ED6D3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <h3>Dziewczyny w twojej firmie</h3>
+        <ul class="pts-list">
+          <li>Wystąpienie motywacyjne: cel, porażka, powrót do gry</li>
+          <li>Szkolenie z pracy w parze pod presją</li>
+          <li>Ćwiczenia i trening z zespołem na piasku</li>
+          <li>Firmowy turniej „Beat the Champions”</li>
+        </ul>
+        <span class="in-tier">W pakietach: <b>Wilczy Partner, Alfa</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pakiety">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Pakiety na sezon 2027 · ceny netto</span>
+      <h2 class="display">Wybierz <span class="teal">swoje miejsce</span> w watasze.</h2>
+    </div>
+    <div class="tiers">
+      <article class="tier">
+        <span class="role">Wejście dla każdej firmy</span>
+        <h3>Członek Watahy</h3>
+        <div class="price">3 000 zł <small>/ sezon</small></div>
+        <p class="feel">albo 10 × 300 zł. Jesteś w drużynie od pierwszego dnia.</p>
+        <ul><li>Miejsce w Inner Circle</li><li>Koszulka Official Team Member</li><li>Logo na ścianie partnerów</li><li>Zaproszenie na turniej w Polsce</li><li>Spotkanie partnerów i wspólne zdjęcie</li></ul>
+      </article>
+      <article class="tier hot">
+        <span class="role">Partner oficjalny · 2 miejsca</span>
+        <h3>Wilczy Partner</h3>
+        <div class="price">7 500 zł <small>/ sezon</small></div>
+        <p class="feel">Grasz z nami. Twoi ludzie i klienci też.</p>
+        <ul><li>Wszystko z pakietu Członek Watahy</li><li>Logo na strojach lub banerze</li><li>2 rolki z twoją marką</li><li>Spotkanie w twojej firmie: wystąpienie, szkolenie albo trening</li></ul>
+      </article>
+      <article class="tier">
+        <span class="role">Partner tytularny · 1 miejsce</span>
+        <h3>Alfa</h3>
+        <div class="price">20 000 zł <small>/ sezon</small></div>
+        <p class="feel">Prowadzisz watahę. Numer 03 nosi twoje imię.</p>
+        <ul><li>Wszystko z pakietu Wilczy Partner</li><li>Główne logo na strojach</li><li>Seria „Road to the Podium”</li><li>2 wydarzenia dla firmy: stand-up i „Beat the Champions”</li><li>Wyjazd z nami na finał Mistrzostw Polski</li><li>Pierwszeństwo w Inner Circle</li></ul>
+      </article>
+    </div>
+    <div class="barter">
+      <div>
+        <span class="role">Coś za coś</span>
+        <h3>Partner w naturze</h3>
+        <p>Zamiast pieniędzy dajesz to, czego drużyna i tak potrzebuje. Liczymy to po wartości rynkowej i dostajesz pakiet tej samej wartości.</p>
+      </div>
+      <ul class="chips"><li>Auto na sezon</li><li>Noclegi przy turniejach</li><li>Loty</li><li>Sprzęt i stroje</li><li>Okulary</li><li>Fizjoterapia</li><li>Suplementy</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="partnerzy">
+  <div class="wrap">
+    <div class="head">
+      <span class="label">Partnerzy sezonu</span>
+      <h2 class="display">Oni już są <span class="pink">w drużynie.</span></h2>
+    </div>
+    <ul class="partners">
+      <li>Leksus.pl</li><li>Unique Wilczyce</li><li>ASR Krotoszyn</li><li>Gmina Przygodzice</li><li>Biznes-Słowacja.pl</li><li class="you">Twoja firma?</li>
+    </ul>
+  </div>
+</section>
+
+<section class="jersey-sec" id="kontakt">
+  <div class="wrap">
+    <div class="jersey-grid">
+      <div class="head" style="gap:28px">
+        <span class="label">Skład na sezon</span>
+        <h2 class="display">Numer 03 <span class="pink">czeka na ciebie.</span></h2>
+        <div class="roster">
+          <div><span>01 · Vlk</span><em>zawodniczka</em></div>
+          <div><span>02 · Adamek</span><em>zawodniczka</em></div>
+          <div class="you"><span data-i18n-skip>03 · Twoja firma</span><em>drużyna</em></div>
+        </div>
+        <p class="lead">Zacznij od godziny na piasku z Gosią i Agą. Po treningu porozmawiamy o sezonie.</p>
+        <div class="ctas"><a class="btn primary" href="#kontakt">Chcę numer 03</a></div>
+        <div class="contact"><span class="todo">e-mail</span><span class="todo">telefon</span><a class="ig" href="https://www.instagram.com/gosiavlk/" target="_blank" rel="noopener" aria-label="Instagram: Gosia Vlk"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg><span>@gosiavlk</span></a><a class="ig" href="https://www.instagram.com/agnieszka__adamek/" target="_blank" rel="noopener" aria-label="Instagram: Aga Adamek"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg><span>@agnieszka__adamek</span></a></div>
+      </div>
+      <div class="shirt-wrap">
+        <svg class="shirt" viewBox="0 0 420 440" role="img" aria-labelledby="shirtT">
+          <title id="shirtT">Koszulka drużyny Jedna Wataha z numerem 03 i nazwą twojej firmy</title>
+          <defs>
+            <linearGradient id="shG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A4955"/><stop offset="1" stop-color="#2A2932"/></linearGradient>
+            <linearGradient id="slG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#44434E"/><stop offset="1" stop-color="#2C2B34"/></linearGradient>
+                      </defs>
+          <!-- rękawy -->
+          <path d="M98 34 L62 48 L8 238 L44 252 L98 116 Z" fill="url(#slG)"/>
+          <path d="M322 34 L358 48 L412 238 L376 252 L322 116 Z" fill="url(#slG)"/>
+          <path d="M8 238 L44 252 L40 262 L4 248 Z" fill="#1F1E25"/><path d="M412 238 L376 252 L380 262 L416 248 Z" fill="#1F1E25"/>
+          <!-- korpus -->
+          <path d="M145 22 Q210 56 275 22 L322 34 L322 430 L98 430 L98 34 Z" fill="url(#shG)"/>
+          <path d="M145 22 Q210 56 275 22" fill="none" stroke="#1F1E25" stroke-width="7"/>
+          <!-- wilk: mały znak pod numerem -->
+          <g transform="translate(164 318) scale(0.92)" stroke="#2A2932" stroke-width=".8" stroke-linejoin="round">
+            <polygon points="18,4 38,30 50,26 62,30 82,4 84,38 96,56 76,72 62,92 50,106 38,92 24,72 4,56 16,38" fill="#2BB8B6"/>
+            <polygon points="16,38 4,56 24,72 34,56" fill="#1F8E8C"/>
+            <polygon points="84,38 96,56 76,72 66,56" fill="#1F8E8C"/>
+            <polygon points="22,12 34,31 25,33" fill="#16615F"/>
+            <polygon points="78,12 66,31 75,33" fill="#16615F"/>
+            <polygon points="38,30 50,26 62,30 50,52" fill="#5FE3DF"/>
+            <polygon points="16,38 38,30 50,52 34,56" fill="#3ED6D3"/>
+            <polygon points="84,38 62,30 50,52 66,56" fill="#3ED6D3"/>
+            <polygon points="34,56 50,52 66,56 58,64 50,62 42,64" fill="#249F9D"/>
+            <polygon points="42,64 50,62 58,64 57,86 50,92 43,86" fill="#7EEBE7"/>
+            <polygon points="24,72 34,56 42,64 43,86 38,92" fill="#2BB8B6"/>
+            <polygon points="76,72 66,56 58,64 57,86 62,92" fill="#2BB8B6"/>
+            <polygon points="38,92 43,86 50,92 57,86 62,92 50,106" fill="#1F8E8C"/>
+            <polygon points="45,84 55,84 50,91" fill="#14151C" stroke="none"/>
+            <polygon points="31,46 42,45 37,50" fill="#F7F5F2" stroke="none"/>
+            <polygon points="69,46 58,45 63,50" fill="#F7F5F2" stroke="none"/>
+          </g>
+          <!-- nadruki -->
+          <text x="210" y="96" text-anchor="middle" class="sh-name" id="shName">TWOJA FIRMA</text>
+          <text x="210" y="248" text-anchor="middle" class="sh-no">03</text>
+          <text x="210" y="280" text-anchor="middle" class="sh-sub">JEDNA WATAHA</text>
+          <text x="210" y="296" text-anchor="middle" class="sh-sub">OFFICIAL TEAM MEMBER</text>
+          <text x="66" y="150" text-anchor="middle" class="sh-sleeve" transform="rotate(-70 66 150)">VLK · ADAMEK</text>
+        </svg>
+        <div class="brandbox">
+          <label for="brand03">Wpisz nazwę swojej firmy</label>
+          <input id="brand03" type="text" maxlength="20" value="Twoja firma" autocomplete="off">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">© 2027 Jedna Wataha · Gosia Vlk &amp; Aga Adamek</div></footer>
+
+<script>
+(function(){
+  /* Film */
+  var v=document.getElementById('clip'), btn=document.getElementById('pause');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var big=document.getElementById('bigplay');
+  v.muted=true; v.defaultMuted=true; v.playsInline=true; v.setAttribute('webkit-playsinline','');
+  function sync(){ var on=!v.paused; btn.textContent=on?'II':'▶'; btn.setAttribute('aria-label',on?'Zatrzymaj film':'Odtwórz film'); }
+  function start(){ v.muted=true; var p=v.play(); if(p&&p.catch)p.catch(function(){ sync(); big.hidden=false; }); }
+  v.addEventListener('playing',function(){ big.hidden=true; sync(); }); v.addEventListener('pause',sync);
+  if(reduce) big.hidden=false;
+  btn.addEventListener('click',function(){ if(v.paused) start(); else v.pause(); });
+  big.addEventListener('click',start);
+  /* iPhone odtwarza wideo tylko z serwera obsługującego zakresy bajtów; plik wczytujemy więc w całości i podajemy jako blob */
+  function load(cb){
+    var done=function(src){ v.src=src; v.load(); cb(); };
+    if(window.fetch&&window.URL&&URL.createObjectURL){
+      fetch('media/hero.mp4').then(function(r){ if(!r.ok) throw 0; return r.arrayBuffer(); })
+        .then(function(b){ done(URL.createObjectURL(new Blob([b],{type:'video/mp4'}))); })
+        .catch(function(){ done('media/hero.mp4'); });
+    } else done('media/hero.mp4');
+  }
+  load(function(){ if(!reduce) start(); });
+  if(!reduce){
+    /* Telefon: gdy przeglądarka zablokuje autostart, film rusza przy pierwszym dotknięciu albo przewinięciu */
+    var kick=function(){ if(v.paused) start(); ['touchstart','touchend','scroll','click'].forEach(function(e){ window.removeEventListener(e,kick,true); }); };
+    ['touchstart','touchend','scroll','click'].forEach(function(e){ window.addEventListener(e,kick,{capture:true,passive:true}); });
+    document.addEventListener('visibilitychange',function(){ if(!document.hidden&&v.paused&&big.hidden) start(); });
+  }
+  setTimeout(sync,1200);
+
+  /* Tie-break: 11:11 -> 14:14 -> 16:14 */
+  var us=document.getElementById('us'), them=document.getElementById('them'), call=document.getElementById('call');
+  var steps=[
+    [11,11,'Tie-break. Każdy punkt waży jak cały set.'],
+    [12,11,'Atak Gosi po prostej. 12:11.'],
+    [12,12,'Rywalki odpowiadają.'],
+    [13,12,'Obrona Agi z piasku. Wstajesz z krzesła.'],
+    [13,13,'Znowu remis.'],
+    [14,13,'Piłka meczowa!'],
+    [14,14,'14:14. Serce w gardle.'],
+    [15,14,'Blok Gosi. Jeszcze jeden punkt.'],
+    [16,14,'Wygrana. Twoja też.']
+  ];
+  var timer=null, running=false;
+  function show(s){
+    if(us.textContent!=String(s[0])){us.textContent=s[0];us.classList.remove('bump');void us.offsetWidth;us.classList.add('bump');}
+    if(them.textContent!=String(s[1])){them.textContent=s[1];them.classList.remove('bump');void them.offsetWidth;them.classList.add('bump');}
+    call.setAttribute('data-pl',s[2]); call.textContent=(window.__t?window.__t(s[2]):s[2]);
+  }
+  function play(){
+    if(running) return; running=true; var i=0;
+    (function next(){ show(steps[i]); var wait=(steps[i][0]===14&&steps[i][1]===14)?2600:1300; i++;
+      if(i<steps.length) timer=setTimeout(next,wait); else running=false; })();
+  }
+  document.getElementById('replay').addEventListener('click',function(){ clearTimeout(timer); running=false; if(reduce){show(steps[steps.length-1]);} else play(); });
+  if(!reduce && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(e){ if(e[0].isIntersecting){ play(); io.disconnect(); } },{threshold:.5});
+    io.observe(document.querySelector('.board'));
+  }
+})();
+</script>
+
+<script>
+/* Koszulka 03: nazwa firmy sponsora */
+(function(){
+  var i=document.getElementById('brand03'), t=document.getElementById('shName'), you=document.querySelector('.roster .you span');
+  if(!i||!t) return;
+  function draw(){ var v=(i.value.trim()||'Twoja firma').toUpperCase(); t.textContent=v; t.removeAttribute('textLength'); t.removeAttribute('lengthAdjust');
+    try{ if(t.getComputedTextLength()>200){ t.setAttribute('textLength','200'); t.setAttribute('lengthAdjust','spacingAndGlyphs'); } }catch(e){}
+    if(you) you.textContent='03 · '+(i.value.trim()||(window.__t?window.__t('Twoja firma'):'Twoja firma')); }
+  i.addEventListener('input',draw);
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(draw); draw();
+})();
+</script>
+
+<script>
+/* Język PL / EN */
+(function(){
+  var EN={"JEDNA": "ONE", "WATAHA": "PACK", "Dołącz": "Join", "Zostań": "Become", "trzecim": "the third", "zawodnikiem.": "player.", "Na piasku stoją dwie. Ty stoisz przy linii i czujesz każdy punkt, jakbyś sam był na boisku. Bo jesteś częścią drużyny.": "Two of them stand on the sand. You stand at the line and feel every point as if you were on the court. Because you are part of the team.", "Dołącz do drużyny": "Join the team", "Poczuj, jak to jest": "Feel what it's like", "Twoja firma?": "Your company?", "Tie-break, gra na przewagi": "Tie-break, win by two", "Na boisku są dwie.": "Two on the court.", "Wygrywa się we trzech.": "Three to win.", "Set 3 · do 15": "Set 3 · to 15", "Na żywo": "Live", "i ty": "and you", "Rywalki": "Opponents", "14:14. Serce w gardle.": "14:14. Heart in your throat.", "Zagraj jeszcze raz": "Play it again", "Tie-break. Każdy punkt waży jak cały set.": "Tie-break. Every point weighs a whole set.", "Atak Gosi po prostej. 12:11.": "Gosia attacks down the line. 12:11.", "Rywalki odpowiadają.": "The opponents answer.", "Obrona Agi z piasku. Wstajesz z krzesła.": "Aga digs it out of the sand. You're out of your seat.", "Znowu remis.": "Tied again.", "Piłka meczowa!": "Match point!", "Blok Gosi. Jeszcze jeden punkt.": "Gosia blocks. One more point.", "Wygrana. Twoja też.": "Victory. Yours too.", "Kibic patrzy na wynik. Członek drużyny go przeżywa. To dwa zupełnie różne mecze.": "A fan watches the score. A team member lives it. Two completely different matches.", "Zobacz różnicę poniżej.": "See the difference below.", "Zwykły kibic": "Ordinary fan", "Patrzy na wynik.": "Watches the score.", "Ogląda mecz w telefonie": "Watches the match on a phone", "Cieszy się z cudzego wyniku": "Cheers for someone else's result", "Zna dziewczyny z telewizji": "Knows the players from TV", "Kupuje bilet i wraca do domu": "Buys a ticket and goes home", "Po sezonie nic nie zostaje": "Nothing is left after the season", "Ty w drużynie": "You on the team", "Przeżywasz każdy punkt.": "You live every point.", "Stoisz przy boisku": "You stand courtside", "Wygrywasz razem z nami": "You win with us", "Dzwonisz do dziewczyn po meczu": "You call the players after the match", "Dokładasz cegiełkę do złota": "You add a brick to the gold", "Medal jest też twój": "The medal is yours too", "Drużyna": "The team", "Dwie zawodniczki.": "Two players.", "Jeden cel.": "One goal.", "cm wzrostu": "cm tall", "Mistrzyni świata": "World champion", "3 brązowe medale": "3 bronze medals", "turnieje eliminacyjne ORLEN Mistrzostw Polski 2026": "ORLEN Polish Championship qualifiers 2026", "5. miejsce": "5th place", "Finał Mistrzostw Polski": "Polish Championship final", "Eliminacje Mistrzostw Polski": "Polish Championship qualifiers", "Mistrzyni Polski": "Polish champion", "Srebro Beach Pro Tour Futures": "Silver, Beach Pro Tour Futures", "turniej światowy FIVB": "FIVB world tour event", "Wicemistrzyni Polski": "Polish runner-up", "Multimedalistka": "Multiple medallist", "turnieje eliminacyjne Mistrzostw Polski": "Polish Championship qualifiers", "4. miejsce": "4th place", "Mistrzostwa Polski 2026": "Polish Championship 2026", "7. miejsce": "7th place", "Mistrzostwa Europy": "European Championship", "Trener drużyny": "Team coach", "Za każdą wielką parą stoi trener": "Behind every great pair stands a coach", "Nie ma wielkiej drużyny": "No great team", "bez wielkiego trenera.": "without a great coach.", "Mega nowoczesne podejście i wiedza na światowym poziomie: technika, przygotowanie mentalne, prowadzenie drużyny.": "A truly modern approach and world-class knowledge: technique, mental preparation, team leadership.", "3 kraje": "3 countries", "Polska, Niemcy, Węgry": "Poland, Germany, Hungary", "i węgierska Extraliga kobiet": "and the Hungarian women's Extraliga", "Pasja": "Passion", "entuzjasta, który zapala drużynę": "an enthusiast who lights up the team", "Sezon 2027": "Season 2027", "kalendarz do potwierdzenia": "calendar to be confirmed", "Gdzie będziesz": "Where you'll be", "z nami.": "with us.", "Sty": "Jan", "Lut": "Feb", "Mar": "Mar", "Kwi": "Apr", "Maj": "May", "Cze": "Jun", "Lip": "Jul", "Sie": "Aug", "przygotowanie": "preparation", "Europa i świat": "Europe and world", "Challenge, Futures, satelity CEV": "Challenge, Futures, CEV satellites", "Finał": "Final", "Polska": "Poland", "ORLEN Mistrzostwa Polski, eliminacje": "ORLEN Polish Championship, qualifiers", "Styczeń": "January", "Start sezonu": "Season start", "Obóz, siłownia, pierwsze treningi nowej pary": "Camp, gym, first sessions of the new pair", "gdzie": "where", "Przygotowanie": "Preparation", "Lut–maj": "Feb–May", "Turnieje światowe FIVB": "FIVB world tour events", "miejsca do uzupełnienia": "venues to be added", "Świat": "World", "Turnieje międzynarodowe, punkty do rankingu": "International events, ranking points", "Satelity CEV": "CEV satellites", "Turnieje europejskie": "European events", "Europa": "Europe", "Maj–lip": "May–Jul", "ORLEN Mistrzostwa Polski": "ORLEN Polish Championship", "Turnieje eliminacyjne w Polsce": "Qualifiers in Poland", "miasta i daty": "cities and dates", "Sierpień": "August", "ORLEN Finał Mistrzostw Polski": "ORLEN Polish Championship final", "Mecz o złoto. Tu jedziemy wszyscy razem.": "The match for gold. We all go there together.", "miejsce": "venue", "Cel sezonu": "Season goal", "Co dostajesz": "What you get", "Więcej niż": "More than a", "logo.": "logo.", "Turnieje": "Tournaments", "Emocje na turnieju": "Tournament emotions", "Miejsce przy boisku na wybranych turniejach": "Courtside seat at selected tournaments", "Wejście za kulisy: rozgrzewka, odprawa, szatnia": "Backstage: warm-up, briefing, locker room", "Wiadomość od dziewczyn przed i po meczu": "A message from the players before and after the match", "Relacja na żywo z turniejów za granicą": "Live updates from tournaments abroad", "Wspólne świętowanie po medalu": "Celebrating the medal together", "W pakietach:": "In packages:", "wszystkich": "all", "Wygrywasz z nami": "You win with us", "Koszulka „Official Team Member” z numerem 03": "An “Official Team Member” shirt with number 03", "Twoja marka na strojach i przy boisku": "Your brand on the kit and courtside", "Rolki i zdjęcia z sezonu do twojego marketingu": "Reels and photos from the season for your marketing", "Kampania z twoją marką, na przykład „Road to the Podium”": "A campaign with your brand, e.g. “Road to the Podium”", "Wilczy Partner, Alfa": "Wolf Partner, Alpha", "Poznajesz przedsiębiorców": "You meet business owners", "Miejsce w Inner Circle, klubie partnerów drużyny": "A place in the Inner Circle, the team's partner club", "Przedstawiamy cię firmom, z którymi możesz robić biznes": "We introduce you to companies you can do business with", "Spotkania partnerów przy boisku i po turnieju": "Partner meetups courtside and after the tournament", "Zamknięta grupa klubu przez cały sezon": "A private club group all season", "Dla firmy": "For your company", "Dziewczyny w twojej firmie": "The players at your company", "Wystąpienie motywacyjne: cel, porażka, powrót do gry": "Motivational talk: goals, defeat, coming back", "Szkolenie z pracy w parze pod presją": "Workshop on working as a pair under pressure", "Ćwiczenia i trening z zespołem na piasku": "Exercises and training with your team on the sand", "Firmowy turniej „Beat the Champions”": "Company tournament “Beat the Champions”", "Pakiety na sezon 2027 · ceny netto": "Season 2027 packages · net prices", "Wybierz": "Choose", "swoje miejsce": "your place", "w watasze.": "in the pack.", "Wejście dla każdej firmy": "Entry for any company", "Członek Watahy": "Pack Member", "/ sezon": "/ season", "albo 10 × 300 zł. Jesteś w drużynie od pierwszego dnia.": "or 10 × 300 zł. You're on the team from day one.", "Miejsce w Inner Circle": "A place in the Inner Circle", "Koszulka Official Team Member": "Official Team Member shirt", "Logo na ścianie partnerów": "Logo on the partner wall", "Zaproszenie na turniej w Polsce": "Invitation to a tournament in Poland", "Spotkanie partnerów i wspólne zdjęcie": "Partner meetup and a photo together", "Partner oficjalny · 2 miejsca": "Official partner · 2 places", "Wilczy Partner": "Wolf Partner", "Grasz z nami. Twoi ludzie i klienci też.": "You play with us. Your people and clients too.", "Wszystko z pakietu Członek Watahy": "Everything in Pack Member", "Logo na strojach lub banerze": "Logo on the kit or banner", "2 rolki z twoją marką": "2 reels with your brand", "Spotkanie w twojej firmie: wystąpienie, szkolenie albo trening": "A session at your company: talk, workshop or training", "Partner tytularny · 1 miejsce": "Title partner · 1 place", "Alfa": "Alpha", "Prowadzisz watahę. Numer 03 nosi twoje imię.": "You lead the pack. Number 03 carries your name.", "Wszystko z pakietu Wilczy Partner": "Everything in Wolf Partner", "Główne logo na strojach": "Main logo on the kit", "Seria „Road to the Podium”": "“Road to the Podium” series", "2 wydarzenia dla firmy: stand-up i „Beat the Champions”": "2 company events: stand-up and “Beat the Champions”", "Wyjazd z nami na finał Mistrzostw Polski": "Trip with us to the Polish Championship final", "Pierwszeństwo w Inner Circle": "Priority in the Inner Circle", "Coś za coś": "Something for something", "Partner w naturze": "In-kind partner", "Zamiast pieniędzy dajesz to, czego drużyna i tak potrzebuje. Liczymy to po wartości rynkowej i dostajesz pakiet tej samej wartości.": "Instead of money, you give what the team needs anyway. We count it at market value and you get a package of the same value.", "Auto na sezon": "A car for the season", "Noclegi przy turniejach": "Hotels at tournaments", "Loty": "Flights", "Sprzęt i stroje": "Gear and kit", "Okulary": "Sunglasses", "Fizjoterapia": "Physiotherapy", "Suplementy": "Supplements", "Partnerzy sezonu": "Season partners", "Oni już są": "They're already", "w drużynie.": "on the team.", "Skład na sezon": "Season roster", "Numer 03": "Number 03", "czeka na ciebie.": "is waiting for you.", "zawodniczka": "player", "03 · Twoja firma": "03 · Your company", "drużyna": "team", "Zacznij od godziny na piasku z Gosią i Agą. Po treningu porozmawiamy o sezonie.": "Start with an hour on the sand with Gosia and Aga. After training, we'll talk about the season.", "Chcę numer 03": "I want number 03", "telefon": "phone", "Wpisz nazwę swojej firmy": "Type your company name", "© 2027 Jedna Wataha · Gosia Vlk &amp; Aga Adamek": "Working draft · 11.11.2026", "Na żywo z turnieju": "Live from the tournament", "Teraz gramy": "Now playing", "Następny mecz": "Next match", "Zakończony": "Finished", "Mecz trwa": "In progress", "Zaktualizowano": "Updated", "Sezon startuje w styczniu 2027.": "The season starts in January 2027.", "Tu zobaczysz każdy turniej: gdzie gramy, z kim, o której i jaki był wynik.": "Here you'll see every tournament: where we play, against whom, when, and the score.", "Śledź nas na Instagramie": "Follow us on Instagram", "boisko": "court", "Twoja firma": "Your company"};
+  var lang='pl';
+  window.__t=function(x){ return lang==='en'&&EN[x]?EN[x]:x; };
+  var nodes=null;
+  function collect(){
+    nodes=[]; var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+      var p=n.parentNode; if(!n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      while(p&&p!==document.body){ if(p.nodeName==='SCRIPT'||p.nodeName==='STYLE'||(p.hasAttribute&&p.hasAttribute('data-i18n-skip'))) return NodeFilter.FILTER_REJECT; p=p.parentNode; }
+      return NodeFilter.FILTER_ACCEPT; }});
+    var n; while(n=w.nextNode()) nodes.push([n,n.nodeValue]);
+  }
+  function apply(l){
+    lang=l; if(!nodes) collect();
+    nodes.forEach(function(x){ var pl=x[1], k=pl.trim(); if(l==='en'&&EN[k]) x[0].nodeValue=pl.replace(k,EN[k]); else x[0].nodeValue=pl; });
+    document.documentElement.lang=l;
+    [].forEach.call(document.querySelectorAll('.lang button'),function(b){ b.setAttribute('aria-pressed',b.getAttribute('data-l')===l?'true':'false'); });
+    var bi=document.getElementById('brand03'); if(bi&&/^(twoja firma|your company)$/i.test(bi.value.trim())){ bi.value=window.__t('Twoja firma'); bi.dispatchEvent(new Event('input')); }
+    var c=document.getElementById('call'); if(c) c.textContent=window.__t(c.getAttribute('data-pl')||'14:14. Serce w gardle.');
+    if(window.__renderLive) window.__renderLive();
+    try{ localStorage.setItem('lang',l); }catch(e){}
+  }
+  window.__setLang=apply;
+  [].forEach.call(document.querySelectorAll('.lang button'),function(b){ b.addEventListener('click',function(){ apply(b.getAttribute('data-l')); }); });
+  var start='pl'; try{ start=localStorage.getItem('lang')||'pl'; }catch(e){}
+  if(location.hash==='#en') start='en'; if(location.hash==='#pl') start='pl';
+  if(start==='en') apply('en');
+})();
+/* Na żywo z turnieju: dane z bloku live-data */
+(function(){
+  var t=function(x){ return window.__t?window.__t(x):x; };
+  function esc(x){ var d=document.createElement('div'); d.textContent=x==null?'':String(x); return d.innerHTML; }
+  function render(){
+    var data={}; try{ data=JSON.parse(document.getElementById('live-data').textContent); }catch(e){}
+    var T=document.getElementById('liveTitle'), S=document.getElementById('liveSub'), L=document.getElementById('liveList'), U=document.getElementById('liveUpd');
+    if(!data.tournament){
+      T.textContent=t('Sezon startuje w styczniu 2027.');
+      S.textContent=t('Tu zobaczysz każdy turniej: gdzie gramy, z kim, o której i jaki był wynik.');
+      L.innerHTML='<div class="live-empty"><a class="ig" href="https://www.instagram.com/gosiavlk/" target="_blank" rel="noopener">@gosiavlk</a><a class="ig" href="https://www.instagram.com/agnieszka__adamek/" target="_blank" rel="noopener">@agnieszka__adamek</a></div>';
+      U.textContent=''; return;
+    }
+    T.textContent=data.tournament.name||'';
+    S.textContent=[data.tournament.place,data.tournament.dates].filter(Boolean).join(' · ');
+    L.innerHTML=(data.matches||[]).map(function(m){
+      var st=m.status==='live'?'<span class="chip live">'+esc(t('Mecz trwa'))+'</span>':m.status==='done'?'<span class="chip">'+esc(t('Zakończony'))+'</span>':'<span class="chip next">'+esc(t('Następny mecz'))+'</span>';
+      var sc=m.score?'<span class="score'+(m.win?' win':'')+'">'+esc(m.score)+'</span>':'';
+      return '<div class="match-row"><div class="tm">'+esc(m.time||'')+'</div><div><div class="mvs">Vlk / Adamek <span class="pink">vs</span> '+esc(m.opponent||'')+'</div><div class="meta">'+esc([m.round,m.court?t('boisko')+' '+m.court:''].filter(Boolean).join(' · '))+'</div></div><div class="st">'+st+sc+'</div></div>';
+    }).join('');
+    U.textContent=data.updated?t('Zaktualizowano')+': '+data.updated:'';
+  }
+  window.__renderLive=render; render();
+})();
+</script>
+</body>
+</html>
